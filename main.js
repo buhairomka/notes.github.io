@@ -7,6 +7,7 @@ let notes = [];
 window.onbeforeunload = () => {
     localStorage.setItem('notes', JSON.stringify(notes))
 }
+
 window.onload = () => {
 
     if (localStorage.getItem('notes')) {
@@ -15,22 +16,22 @@ window.onload = () => {
         notes.forEach((elem) => {
 
             const lishka = document.createElement('li');
-            lishka.innerHTML = elem.name+'<br>';
-            lishka.setAttribute('class','');
-            lishka.setAttribute('id',elem.id);
+            lishka.innerHTML = elem.name + '<br>';
+            lishka.setAttribute('class', '');
+            lishka.setAttribute('id', elem.id);
             let ulka = document.getElementById('ulka');
             ulka.appendChild(lishka);
         })
         selected = null;
     }
-    if (location.hash != ''){
-        selected=location.hash.slice(1);
+    if (location.hash != '') {
+        selected = location.hash.slice(1);
         let listLi = document.querySelectorAll('li')
         listLi.forEach((elem) => {
-            if (elem.id == location.hash.slice(1)){
-                elem.setAttribute('class','active')
-                notes.forEach((elem)=>{
-                    if (elem.id == location.hash.slice(1)){
+            if (elem.id == location.hash.slice(1)) {
+                elem.setAttribute('class', 'active')
+                notes.forEach((elem) => {
+                    if (elem.id == location.hash.slice(1)) {
                         textarea.value = elem.text
                     }
                 })
@@ -39,6 +40,24 @@ window.onload = () => {
 
     }
 }
+
+window.onhashchange = () => {
+    selected = location.hash.slice(1);
+    let listLi = document.querySelectorAll('li')
+    listLi.forEach((elem) => {
+        if (elem.id == location.hash.slice(1)) {
+            elem.setAttribute('class', 'active')
+            notes.forEach((elem) => {
+                if (elem.id == location.hash.slice(1)) {
+                    textarea.value = elem.text
+                }
+            })
+        } else  elem.setAttribute('class', '')
+    })
+
+
+}
+
 
 class Note {
     constructor(id, name, text, isSelected, date) {
@@ -69,7 +88,7 @@ window.onclick = function (event) {
             } else {
                 elem.setAttribute('class', 'active');
                 selected = event.target.id;
-                location.hash=event.target.id
+                location.hash = event.target.id
             }
 
         })
@@ -91,10 +110,10 @@ button_plus.addEventListener('click', () => {
     const lishka = document.createElement('li');
     lishka.classList.add('active');
     const id = Date.now();
-    location.hash=id
+    location.hash = id
     let date = new Date().toLocaleString()
     selected = id;
-    lishka.innerHTML = 'New note'+'<br>'+date;
+    lishka.innerHTML = 'New note' + '<br>' + date;
     lishka.setAttribute('id', id)
     const note = new Note(id, 'New note', '', true, date);
     notes.unshift(note);
@@ -136,13 +155,13 @@ textarea.addEventListener('input', () => {
         if (elem.isSelected === true) {
             elem.text = (textarea.value);
             elem.date = date
-            elem.name = textarea.value.slice(0, 25)+'<br>'+ date
+            elem.name = textarea.value.slice(0, 25) + '<br>' + date
         }
     })
     let listLi = document.querySelectorAll('li');
     listLi.forEach((elem) => {
         if (elem.className === 'active') {
-            elem.innerHTML = textarea.value.slice(0, 25)+'<br>'+ date;
+            elem.innerHTML = textarea.value.slice(0, 25) + '<br>' + date;
         }
     })
 
