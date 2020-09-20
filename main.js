@@ -14,9 +14,8 @@ window.onload = () => {
         notes = JSON.parse(localStorage.getItem('notes'))
         console.log(notes)
         notes.forEach((elem) => {
-
             const lishka = document.createElement('li');
-            lishka.innerHTML = elem.name + '<br>';
+            lishka.innerHTML = elem.name + '<br>' + elem.date;
             lishka.setAttribute('class', '');
             lishka.setAttribute('id', elem.id);
             let ulka = document.getElementById('ulka');
@@ -52,7 +51,7 @@ window.onhashchange = () => {
                     textarea.value = elem.text
                 }
             })
-        } else  elem.setAttribute('class', '')
+        } else elem.setAttribute('class', '')
     })
 
 
@@ -139,6 +138,7 @@ button_minus.addEventListener('click', () => {
     for (let i = 0; i < notes.length; i++) {
         if (selected != null) {
             if (notes[i].id == selected) {
+                location.hash = ''
                 notes = remove(notes, i);
                 document.getElementById(selected).remove();
                 selected = null;
