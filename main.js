@@ -8,10 +8,12 @@ window.onbeforeunload = () => {
     localStorage.setItem('notes', JSON.stringify(notes))
 }
 window.onload = () => {
+
     if (localStorage.getItem('notes')) {
         notes = JSON.parse(localStorage.getItem('notes'))
         console.log(notes)
         notes.forEach((elem) => {
+
             const lishka = document.createElement('li');
             lishka.innerHTML = elem.name+'<br>';
             lishka.setAttribute('class','');
@@ -20,6 +22,21 @@ window.onload = () => {
             ulka.appendChild(lishka);
         })
         selected = null;
+    }
+    if (location.hash != ''){
+        selected=location.hash.slice(1);
+        let listLi = document.querySelectorAll('li')
+        listLi.forEach((elem) => {
+            if (elem.id == location.hash.slice(1)){
+                elem.setAttribute('class','active')
+                notes.forEach((elem)=>{
+                    if (elem.id == location.hash.slice(1)){
+                        textarea.value = elem.text
+                    }
+                })
+            }
+        })
+
     }
 }
 
@@ -52,6 +69,7 @@ window.onclick = function (event) {
             } else {
                 elem.setAttribute('class', 'active');
                 selected = event.target.id;
+                location.hash=event.target.id
             }
 
         })
@@ -73,6 +91,7 @@ button_plus.addEventListener('click', () => {
     const lishka = document.createElement('li');
     lishka.classList.add('active');
     const id = Date.now();
+    location.hash=id
     let date = new Date().toLocaleString()
     selected = id;
     lishka.innerHTML = 'New note'+'<br>'+date;
