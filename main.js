@@ -176,13 +176,13 @@ textarea.addEventListener('input', () => {
         if (elem.isSelected === true) {
             elem.text = (textarea.value);
             elem.date = date
-            elem.name = textarea.value.slice(0, 25);
+            elem.name = textarea.value.slice(0, 25).split('\n')[0];
         }
     })
     let listLi = document.querySelectorAll('li');
     listLi.forEach((elem) => {
         if (elem.className === 'active') {
-            elem.innerHTML = textarea.value.slice(0, 25) + '<br>' + date;
+            elem.innerHTML = textarea.value.slice(0, 25).split('\n')[0] + '<br>' + date;
         }
     })
 
