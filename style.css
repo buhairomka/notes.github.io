@@ -7,8 +7,11 @@ body {
     padding: 0;
     margin: 0;
 }
-
+button{
+    width: 95px;
+}
 .window {
+    min-width: 570px;
     margin-left: auto;
     margin-right: auto;
     width: 90%;
@@ -20,6 +23,7 @@ body {
 }
 
 .list {
+    min-width: 235px;
     padding: 0;
     margin: 0;
     width: calc(40%);
@@ -32,6 +36,7 @@ ul{
 }
 
 .textarea {
+    min-width: 335px;
     padding: 35px;
     font-family: Consolas, sans-serif;
     font-size:  20px;
@@ -74,9 +79,9 @@ button {
     border-radius: 6px;
     background: #CA9521;
     color: white;
-    height: 20px;
-    width: 70px;
-    margin-top: 25px;
+    height: 40px;
+    width: 95px;
+    margin-top: 15px;
     margin-right: 10px;
 }
 

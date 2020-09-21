@@ -36,11 +36,25 @@ window.onload = () => {
                 })
             }
         })
-
+    } else {
+        textarea.setAttribute('disabled', 'disabled')
+        console.log('all is good')
     }
 }
 
 window.onhashchange = () => {
+    if (location.hash == '') {
+        let listLi = document.querySelectorAll('li')
+        listLi.forEach((elem) => {
+            if (elem.id == location.hash.slice(1)) {
+                elem.setAttribute('class', '');
+                selected = null;
+
+            }
+        })
+        textarea.value = '';
+        textarea.setAttribute('disabled', 'disabled');
+    }
     selected = location.hash.slice(1);
     let listLi = document.querySelectorAll('li')
     listLi.forEach((elem) => {
@@ -96,7 +110,9 @@ window.onclick = function (event) {
                 elem.isSelected = false;
             } else {
                 elem.isSelected = true;
+                textarea.removeAttribute('disabled')
                 textarea.value = elem.text
+
             }
         })
 
@@ -130,7 +146,10 @@ button_plus.addEventListener('click', () => {
     listLi.forEach((elem) => {
         if (elem.id != id) {
             elem.setAttribute('class', '');
-        } else elem.setAttribute('class', 'active');
+        } else {
+            elem.setAttribute('class', 'active');
+            textarea.removeAttribute('disabled');
+        }
     });
 });
 
@@ -143,6 +162,8 @@ button_minus.addEventListener('click', () => {
                 document.getElementById(selected).remove();
                 selected = null;
                 textarea.value = '';
+                textarea.setAttribute('disabled', 'disabled')
+
             }
         }
 
@@ -155,7 +176,7 @@ textarea.addEventListener('input', () => {
         if (elem.isSelected === true) {
             elem.text = (textarea.value);
             elem.date = date
-            elem.name = textarea.value.slice(0, 25) + '<br>' + date
+            elem.name = textarea.value.slice(0, 25);
         }
     })
     let listLi = document.querySelectorAll('li');
